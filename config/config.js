@@ -1,9 +1,9 @@
 module.exports = {
   development: {
     username: "postgres",
-    password: "admin@123",
+    password: "root",
     database: "octilearn_dev",
-    host: "34.196.118.1",
+    host: "127.0.0.1",
     dialect: "postgres",
     // dialectOptions: {
     //   ssl: {
