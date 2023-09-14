@@ -27,3 +27,6 @@ jobs:
           ssh ubuntu@65.2.166.24 "cd /home/ubuntu/backend && git pull origin main && pm2 restart app.js"
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+
+
+          
