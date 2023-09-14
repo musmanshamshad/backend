@@ -1,10 +1,4 @@
 
-
-
-
-
-
-
 # Web1.3 BE Server
 
 Welcome to Web1.3 BE! This is a Node-Js web application designed to serve as an admin and user panel for managing various aspects of your website.
