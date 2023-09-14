@@ -16,14 +16,14 @@ jobs:
       - name: Prepare SSH key and known_hosts
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.MYSECRETKEY1 }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.NEW_SERVER_TESTING }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan 65.2.166.24 >> ~/.ssh/known_hosts
         env:
-          MYSECRETKEY1: ${{ secrets.MYSECRETKEY1 }}
+          MYSECRETKEY1: ${{ secrets.NEW_SERVER_TESTING }}
 
       - name: SSH into server and deploy
-        uses: appleboy/ssh-action
+        uses: appleboy/ssh-action@main  # Use @main to specify the main branch
         with:
           host: 65.2.166.24
           username: ubuntu
