@@ -1,4 +1,4 @@
-name: Auto Deploy
+name: Deploy to Server
 
 on:
   push:
@@ -10,25 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out code
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Prepare SSH key and known_hosts
+      - name: Install SSH key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.MYSECRETKEY1 }}" > ~/.ssh/id_rsa
+          echo "$SERVER_SSH_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan 65.2.166.24 >> ~/.ssh/known_hosts
         env:
-          MYSECRETKEY1: ${{ secrets.MYSECRETKEY1 }}
-
-      - name: SSH into server and deploy
-        script: |
-            # Navigate to your project directory
-            cd /home/ubuntu/backend
-
-            # Pull the latest code from the GitHub repository
-            git pull
-
-            # Restart the PM2 service
-            pm2 restart app.js
+          SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+        
+      - name: Pull code and restart PM2
+        run: |
+          ssh ubuntu@65.2.166.24 "cd /home/ubuntu/backend && git pull origin main && pm2 restart app.js"
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
