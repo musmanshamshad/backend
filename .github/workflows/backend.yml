@@ -23,7 +23,7 @@ jobs:
           MYSECRETKEY1: ${{ secrets.NEW_SERVER_TESTING }}
 
       - name: SSH into server and deploy
-        uses: appleboy/ssh-action@v0
+        uses: appleboy/ssh-action
         with:
           host: 65.2.166.24
           username: ubuntu
