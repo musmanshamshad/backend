@@ -16,11 +16,11 @@ jobs:
       - name: Install SSH key
         run: |
           mkdir -p ~/.ssh
-          echo "$SERVER_SSH_KEY" > ~/.ssh/id_rsa
+          echo "$MYPRIVATEKEY1" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan 65.2.166.24 >> ~/.ssh/known_hosts
         env:
-          SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          MYPRIVATEKEY1: ${{ secrets.MYPRIVATEKEY1 }}
         
       - name: Pull code and restart PM2
         run: |
