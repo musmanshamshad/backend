@@ -1,7 +1,7 @@
 {
-  "name": "OctiLearn-Backend",
+  "name": "octilearn-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Welcome to Web1.3 BE! This is a Node-Js web application designed to serve as an admin and user panel for managing various aspects of your website.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
