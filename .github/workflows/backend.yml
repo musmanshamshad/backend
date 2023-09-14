@@ -23,7 +23,7 @@ jobs:
           MYSECRETKEY1: ${{ secrets.MYSECRETKEY1 }}
 
       - name: SSH into server and deploy
-          script: |
+        script: |
             # Navigate to your project directory
             cd /home/ubuntu/backend
 
