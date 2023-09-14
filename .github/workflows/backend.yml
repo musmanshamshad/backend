@@ -13,8 +13,57 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
+      - name: Prepare SSH key and known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.NEW_SERVER_TESTING }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan 65.2.166.24 >> ~/.ssh/known_hosts
+        env:
+          MYSECRETKEY1: ${{ secrets.NEW_SERVER_TESTING }}
+
       - name: SSH into server and deploy
-        uses: appleboy/ssh-action@v0.4.3
+        uses: appleboy/ssh-action@v0
+        with:
+          host: 65.2.166.24
+          username: ubuntu
+          key: ${{ secrets.MYSECRETKEY1 }}
+          port: 22
+          script: |
+            # Navigate to your project directory
+            cd /home/ubuntu/backend
+
+            # Pull the latest code from the GitHub repository
+            git pull
+
+            # Restart the PM2 service
+            pm2 restart app.js
+name: Auto Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Prepare SSH key and known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.NEW_SERVER_TESTING }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan 65.2.166.24 >> ~/.ssh/known_hosts
+        env:
+          MYSECRETKEY1: ${{ secrets.NEW_SERVER_TESTING }}
+
+      - name: SSH into server and deploy
+        uses: appleboy/ssh-action@v0
         with:
           host: 65.2.166.24
           username: ubuntu
